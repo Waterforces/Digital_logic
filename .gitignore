@@ -1,2 +1,6 @@
 # Ignore Project directory
 Project/
+
+# Ignore test files and espresso binary
+test.*
+espresso.exe
