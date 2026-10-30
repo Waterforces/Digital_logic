@@ -1,0 +1,479 @@
+<?xml version="1.0" encoding="utf-8"?>
+<circuit>
+  <version>2</version>
+  <attributes/>
+  <visualElements>
+    <!-- 3-bit Input -->
+    <visualElement>
+      <elementName>In</elementName>
+      <elementAttributes>
+        <entry><string>Label</string><string>In</string></entry>
+        <entry><string>Bits</string><int>3</int></entry>
+      </elementAttributes>
+      <pos x="100" y="100"/>
+    </visualElement>
+
+    <!-- Input Splitter: bit 0=C, bit 1=B, bit 2=A -->
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry><string>Input Splitting</string><string>3</string></entry>
+        <entry><string>Output Splitting</string><string>1,1,1</string></entry>
+      </elementAttributes>
+      <pos x="140" y="100"/>
+    </visualElement>
+
+    <!-- Inverters for Inputs -->
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>C</string></entry></elementAttributes>
+      <pos x="200" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="220" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>not_C</string></entry></elementAttributes>
+      <pos x="280" y="100"/>
+    </visualElement>
+
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>B</string></entry></elementAttributes>
+      <pos x="200" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="220" y="160"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>not_B</string></entry></elementAttributes>
+      <pos x="280" y="160"/>
+    </visualElement>
+
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>A</string></entry></elementAttributes>
+      <pos x="200" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Not</elementName>
+      <elementAttributes/>
+      <pos x="220" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>not_A</string></entry></elementAttributes>
+      <pos x="280" y="220"/>
+    </visualElement>
+
+    <!-- ================= Shared Terms ================= -->
+    <!-- AxB = A XOR B -->
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>A</string></entry></elementAttributes>
+      <pos x="320" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>B</string></entry></elementAttributes>
+      <pos x="320" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="360" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>AxB</string></entry></elementAttributes>
+      <pos x="460" y="120"/>
+    </visualElement>
+
+    <!-- AxC = A XOR C -->
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>A</string></entry></elementAttributes>
+      <pos x="320" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>C</string></entry></elementAttributes>
+      <pos x="320" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>XOr</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="360" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>AxC</string></entry></elementAttributes>
+      <pos x="460" y="200"/>
+    </visualElement>
+
+    <!-- m7 = A & B & C -->
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>A</string></entry></elementAttributes>
+      <pos x="320" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>B</string></entry></elementAttributes>
+      <pos x="320" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>C</string></entry></elementAttributes>
+      <pos x="320" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes>
+        <entry><string>wideShape</string><boolean>true</boolean></entry>
+        <entry><string>Inputs</string><int>3</int></entry>
+      </elementAttributes>
+      <pos x="360" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>m7</string></entry></elementAttributes>
+      <pos x="460" y="280"/>
+    </visualElement>
+
+    <!-- ================= z0 = (B & not_C) + (not_B & AxC) ================= -->
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>B</string></entry></elementAttributes>
+      <pos x="520" y="100"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>not_C</string></entry></elementAttributes>
+      <pos x="520" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="560" y="100"/>
+    </visualElement>
+
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>not_B</string></entry></elementAttributes>
+      <pos x="520" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>AxC</string></entry></elementAttributes>
+      <pos x="520" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="560" y="180"/>
+    </visualElement>
+
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="680" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>z0</string></entry></elementAttributes>
+      <pos x="780" y="160"/>
+    </visualElement>
+
+    <!-- ================= z5 = z0 + m7 ================= -->
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>z0</string></entry></elementAttributes>
+      <pos x="820" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>m7</string></entry></elementAttributes>
+      <pos x="820" y="180"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="860" y="140"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>z5</string></entry></elementAttributes>
+      <pos x="960" y="160"/>
+    </visualElement>
+
+    <!-- ================= z1 = (AxB & not_C) + m7 ================= -->
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>AxB</string></entry></elementAttributes>
+      <pos x="520" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>not_C</string></entry></elementAttributes>
+      <pos x="520" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="560" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>m7</string></entry></elementAttributes>
+      <pos x="640" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="680" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>z1</string></entry></elementAttributes>
+      <pos x="780" y="300"/>
+    </visualElement>
+
+    <!-- ================= z2 = AxB + (not_B & not_C) ================= -->
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>not_B</string></entry></elementAttributes>
+      <pos x="520" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>not_C</string></entry></elementAttributes>
+      <pos x="520" y="400"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="560" y="360"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>AxB</string></entry></elementAttributes>
+      <pos x="640" y="420"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="680" y="380"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>z2</string></entry></elementAttributes>
+      <pos x="780" y="400"/>
+    </visualElement>
+
+    <!-- ================= z3 = (not_A & C) + (A & not_B) ================= -->
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>not_A</string></entry></elementAttributes>
+      <pos x="520" y="460"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>C</string></entry></elementAttributes>
+      <pos x="520" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="560" y="460"/>
+    </visualElement>
+
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>A</string></entry></elementAttributes>
+      <pos x="520" y="540"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>not_B</string></entry></elementAttributes>
+      <pos x="520" y="580"/>
+    </visualElement>
+    <visualElement>
+      <elementName>And</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="560" y="540"/>
+    </visualElement>
+
+    <visualElement>
+      <elementName>Or</elementName>
+      <elementAttributes><entry><string>wideShape</string><boolean>true</boolean></entry></elementAttributes>
+      <pos x="680" y="500"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>NetName</string><string>z3</string></entry></elementAttributes>
+      <pos x="780" y="520"/>
+    </visualElement>
+
+    <!-- ================= Output Merger to Out Z ================= -->
+    <visualElement>
+      <elementName>Splitter</elementName>
+      <elementAttributes>
+        <entry><string>Input Splitting</string><string>1,1,1,1,1,1,1,1</string></entry>
+        <entry><string>Output Splitting</string><string>8</string></entry>
+      </elementAttributes>
+      <pos x="1060" y="200"/>
+    </visualElement>
+
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>z0</string></entry></elementAttributes>
+      <pos x="1020" y="200"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>z1</string></entry></elementAttributes>
+      <pos x="1020" y="220"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>z2</string></entry></elementAttributes>
+      <pos x="1020" y="240"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>z3</string></entry></elementAttributes>
+      <pos x="1020" y="260"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes><entry><string>Value</string><long>0</long></entry></elementAttributes>
+      <pos x="1020" y="280"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Tunnel</elementName>
+      <elementAttributes><entry><string>rotation</string><rotation rotation="2"/></entry><entry><string>NetName</string><string>z5</string></entry></elementAttributes>
+      <pos x="1020" y="300"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes><entry><string>Value</string><long>1</long></entry></elementAttributes>
+      <pos x="1020" y="320"/>
+    </visualElement>
+    <visualElement>
+      <elementName>Const</elementName>
+      <elementAttributes><entry><string>Value</string><long>0</long></entry></elementAttributes>
+      <pos x="1020" y="340"/>
+    </visualElement>
+
+    <!-- Grader Output Out Z (8 bit) -->
+    <visualElement>
+      <elementName>Out</elementName>
+      <elementAttributes>
+        <entry><string>Label</string><string>Z</string></entry>
+        <entry><string>Bits</string><int>8</int></entry>
+      </elementAttributes>
+      <pos x="1140" y="200"/>
+    </visualElement>
+  </visualElements>
+
+  <wires>
+    <!-- Input to Splitter & Inverters -->
+    <wire><p1 x="100" y="100"/><p2 x="140" y="100"/></wire>
+    <!-- C (bit 0) -->
+    <wire><p1 x="160" y="100"/><p2 x="200" y="100"/></wire>
+    <wire><p1 x="200" y="100"/><p2 x="220" y="100"/></wire>
+    <wire><p1 x="260" y="100"/><p2 x="280" y="100"/></wire>
+    <!-- B (bit 1) -->
+    <wire><p1 x="160" y="120"/><p2 x="180" y="120"/></wire>
+    <wire><p1 x="180" y="120"/><p2 x="180" y="160"/></wire>
+    <wire><p1 x="180" y="160"/><p2 x="200" y="160"/></wire>
+    <wire><p1 x="200" y="160"/><p2 x="220" y="160"/></wire>
+    <wire><p1 x="260" y="160"/><p2 x="280" y="160"/></wire>
+    <!-- A (bit 2) -->
+    <wire><p1 x="160" y="140"/><p2 x="170" y="140"/></wire>
+    <wire><p1 x="170" y="140"/><p2 x="170" y="220"/></wire>
+    <wire><p1 x="170" y="220"/><p2 x="200" y="220"/></wire>
+    <wire><p1 x="200" y="220"/><p2 x="220" y="220"/></wire>
+    <wire><p1 x="260" y="220"/><p2 x="280" y="220"/></wire>
+
+    <!-- AxB -->
+    <wire><p1 x="320" y="100"/><p2 x="360" y="100"/></wire>
+    <wire><p1 x="320" y="140"/><p2 x="360" y="140"/></wire>
+    <wire><p1 x="440" y="120"/><p2 x="460" y="120"/></wire>
+
+    <!-- AxC -->
+    <wire><p1 x="320" y="180"/><p2 x="360" y="180"/></wire>
+    <wire><p1 x="320" y="220"/><p2 x="360" y="220"/></wire>
+    <wire><p1 x="440" y="200"/><p2 x="460" y="200"/></wire>
+
+    <!-- m7 -->
+    <wire><p1 x="320" y="260"/><p2 x="360" y="260"/></wire>
+    <wire><p1 x="320" y="280"/><p2 x="360" y="280"/></wire>
+    <wire><p1 x="320" y="300"/><p2 x="360" y="300"/></wire>
+    <wire><p1 x="440" y="280"/><p2 x="460" y="280"/></wire>
+
+    <!-- z0 -->
+    <wire><p1 x="520" y="100"/><p2 x="560" y="100"/></wire>
+    <wire><p1 x="520" y="140"/><p2 x="560" y="140"/></wire>
+    <wire><p1 x="520" y="180"/><p2 x="560" y="180"/></wire>
+    <wire><p1 x="520" y="220"/><p2 x="560" y="220"/></wire>
+    <wire><p1 x="640" y="120"/><p2 x="660" y="120"/></wire>
+    <wire><p1 x="660" y="120"/><p2 x="660" y="140"/></wire>
+    <wire><p1 x="660" y="140"/><p2 x="680" y="140"/></wire>
+    <wire><p1 x="640" y="200"/><p2 x="660" y="200"/></wire>
+    <wire><p1 x="660" y="200"/><p2 x="660" y="180"/></wire>
+    <wire><p1 x="660" y="180"/><p2 x="680" y="180"/></wire>
+    <wire><p1 x="760" y="160"/><p2 x="780" y="160"/></wire>
+
+    <!-- z5 -->
+    <wire><p1 x="820" y="140"/><p2 x="860" y="140"/></wire>
+    <wire><p1 x="820" y="180"/><p2 x="860" y="180"/></wire>
+    <wire><p1 x="940" y="160"/><p2 x="960" y="160"/></wire>
+
+    <!-- z1 -->
+    <wire><p1 x="520" y="260"/><p2 x="560" y="260"/></wire>
+    <wire><p1 x="520" y="300"/><p2 x="560" y="300"/></wire>
+    <wire><p1 x="640" y="280"/><p2 x="680" y="280"/></wire>
+    <wire><p1 x="640" y="320"/><p2 x="680" y="320"/></wire>
+    <wire><p1 x="760" y="300"/><p2 x="780" y="300"/></wire>
+
+    <!-- z2 -->
+    <wire><p1 x="520" y="360"/><p2 x="560" y="360"/></wire>
+    <wire><p1 x="520" y="400"/><p2 x="560" y="400"/></wire>
+    <wire><p1 x="640" y="380"/><p2 x="680" y="380"/></wire>
+    <wire><p1 x="640" y="420"/><p2 x="680" y="420"/></wire>
+    <wire><p1 x="760" y="400"/><p2 x="780" y="400"/></wire>
+
+    <!-- z3 -->
+    <wire><p1 x="520" y="460"/><p2 x="560" y="460"/></wire>
+    <wire><p1 x="520" y="500"/><p2 x="560" y="500"/></wire>
+    <wire><p1 x="520" y="540"/><p2 x="560" y="540"/></wire>
+    <wire><p1 x="520" y="580"/><p2 x="560" y="580"/></wire>
+    <wire><p1 x="640" y="480"/><p2 x="660" y="480"/></wire>
+    <wire><p1 x="660" y="480"/><p2 x="660" y="500"/></wire>
+    <wire><p1 x="660" y="500"/><p2 x="680" y="500"/></wire>
+    <wire><p1 x="640" y="560"/><p2 x="660" y="560"/></wire>
+    <wire><p1 x="660" y="560"/><p2 x="660" y="540"/></wire>
+    <wire><p1 x="660" y="540"/><p2 x="680" y="540"/></wire>
+    <wire><p1 x="760" y="520"/><p2 x="780" y="520"/></wire>
+
+    <!-- Output Splitter Inputs & Output Z -->
+    <wire><p1 x="1020" y="200"/><p2 x="1060" y="200"/></wire>
+    <wire><p1 x="1020" y="220"/><p2 x="1060" y="220"/></wire>
+    <wire><p1 x="1020" y="240"/><p2 x="1060" y="240"/></wire>
+    <wire><p1 x="1020" y="260"/><p2 x="1060" y="260"/></wire>
+    <wire><p1 x="1020" y="280"/><p2 x="1060" y="280"/></wire>
+    <wire><p1 x="1020" y="300"/><p2 x="1060" y="300"/></wire>
+    <wire><p1 x="1020" y="320"/><p2 x="1060" y="320"/></wire>
+    <wire><p1 x="1020" y="340"/><p2 x="1060" y="340"/></wire>
+    <wire><p1 x="1080" y="200"/><p2 x="1140" y="200"/></wire>
+  </wires>
+  <measurementOrdering/>
+</circuit>
